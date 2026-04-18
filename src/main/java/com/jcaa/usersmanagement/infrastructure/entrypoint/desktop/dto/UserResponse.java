@@ -10,25 +10,25 @@ import lombok.Data;
 // cualquier campo desde cualquier parte del código después de construirlo:
 //   response.setEmail("otro@email.com"); // nadie impide esto
 // Un record o @Value eliminaría los setters y haría el objeto verdaderamente inmutable.
-@Data
-public class UserResponse {
 
-  private String id;
-  private String name;
-  private String email;
-  private String role;
-  private String status;
+public record UserResponse(
+         String id,
+         String name,
+         String email,
+         String role,
+         String status) {
 
-  public UserResponse(
-      final String id,
-      final String name,
-      final String email,
-      final String role,
-      final String status) {
-    this.id = id;
-    this.name = name;
-    this.email = email;
-    this.role = role;
-    this.status = status;
-  }
+//  public UserResponse(
+//      final String id,
+//      final String name,
+//      final String email,
+//      final String role,
+//      final String status) {
+//    this.id = id;
+//    this.name = name;
+//    this.email = email;
+//    this.role = role;
+//    this.status = status;
+//  }
+
 }
