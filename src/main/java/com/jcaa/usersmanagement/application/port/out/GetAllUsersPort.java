@@ -4,5 +4,9 @@ import com.jcaa.usersmanagement.domain.model.UserModel;
 import java.util.List;
 
 public interface GetAllUsersPort {
-  List<UserModel> getAll();
+    static List<UserModel> getAll() {
+        return null;
+    }
+
+    List<UserModel> getAll();
 }

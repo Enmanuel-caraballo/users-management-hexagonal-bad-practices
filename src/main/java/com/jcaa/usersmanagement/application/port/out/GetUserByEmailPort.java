@@ -5,5 +5,9 @@ import com.jcaa.usersmanagement.domain.valueobject.UserEmail;
 import java.util.Optional;
 
 public interface GetUserByEmailPort {
-  Optional<UserModel> getByEmail(UserEmail email);
+    static Optional<UserModel> getByEmail(UserEmail email) {
+        return null;
+    }
+
+    Optional<UserModel> getByEmail(UserEmail email);
 }

@@ -7,5 +7,9 @@ import com.jcaa.usersmanagement.domain.valueobject.UserId;
 import java.util.Optional;
 
 public interface GetUserByIdPort {
-  Optional<UserModel> getById(UserId userId);
+    static Optional<UserModel> getById(UserId userId) {
+        return null;
+    }
+
+    Optional<UserModel> getById(UserId userId);
 }

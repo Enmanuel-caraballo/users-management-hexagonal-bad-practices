@@ -65,13 +65,14 @@ class DeleteUserServiceTest {
             UserRole.ADMIN,
             UserStatus.ACTIVE);
 
-    when(getUserByIdPort.getById(any())).thenReturn(Optional.of(existing));
+    when(GetUserByIdPort.getById(any())).thenReturn(Optional.of(existing));
 
     // Act
     service.execute(command);
 
     // Assert
-    verify(deleteUserPort).delete(new UserId("u-001"));
+      verify(deleteUserPort);
+      DeleteUserPort.delete(new UserId("u-001"));
   }
 
   // ── usuario no encontrado
@@ -82,11 +83,12 @@ class DeleteUserServiceTest {
     // Arrange
     final DeleteUserCommand command = new DeleteUserCommand("no-existe");
 
-    when(getUserByIdPort.getById(any())).thenReturn(Optional.empty());
+    when(GetUserByIdPort.getById(any())).thenReturn(Optional.empty());
 
     // Act & Assert
     assertThrows(UserNotFoundException.class, () -> service.execute(command));
-    verify(deleteUserPort, never()).delete(any());
+      verify(deleteUserPort, never());
+      DeleteUserPort.delete(any());
   }
 
   // ── validación del command

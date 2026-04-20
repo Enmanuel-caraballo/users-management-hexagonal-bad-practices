@@ -37,9 +37,9 @@ public final class ConsoleIO {
     while (true) {
       out.print(prompt);
       // VIOLACIÓN Regla 4: nombre abreviado "r" en lugar del nombre descriptivo "rawInput".
-      final String r = scanner.nextLine().trim();
+      final String rawInput = scanner.nextLine().trim();
       try {
-        return Integer.parseInt(r);
+        return Integer.parseInt(rawInput);
       } catch (final NumberFormatException ignored) {
         // VIOLACIÓN Regla 10: texto hardcodeado directamente — debe ser una constante.
         out.println("  Invalid input. Please enter a number.");

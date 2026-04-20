@@ -79,7 +79,7 @@ public final class UpdateUserService implements UpdateUserUseCase {
   }
 
   private UserModel findExistingUserOrFail(final UserId userId) {
-    return getUserByIdPort
+    return GetUserByIdPort
         .getById(userId)
         .orElseThrow(() -> UserNotFoundException.becauseIdWasNotFound(userId.value()));
   }
@@ -97,11 +97,11 @@ public final class UpdateUserService implements UpdateUserUseCase {
     // Clean Code - Regla 27 (código listo para leer, no solo para ejecutar):
     // Sin explicación oral del autor es imposible determinar qué condición exacta
     // se está evaluando ni por qué hay lógica redundante en la segunda mitad del OR.
-    if (getUserByEmailPort.getByEmail(newEmail).isPresent()
-        && !getUserByEmailPort.getByEmail(newEmail).get().getId().equals(ownerId)
-        && !getUserByEmailPort.getByEmail(newEmail).get().getEmail().value().equals(newEmail.value())
-            || (getUserByEmailPort.getByEmail(newEmail).isPresent()
-                && !getUserByEmailPort.getByEmail(newEmail).get().getId().value().equals(ownerId.value()))) {
+    if (GetUserByEmailPort.getByEmail(newEmail).isPresent()
+        && !GetUserByEmailPort.getByEmail(newEmail).get().getId().equals(ownerId)
+        && !GetUserByEmailPort.getByEmail(newEmail).get().getEmail().value().equals(newEmail.value())
+            || (GetUserByEmailPort.getByEmail(newEmail).isPresent()
+                && !GetUserByEmailPort.getByEmail(newEmail).get().getId().value().equals(ownerId.value()))) {
       throw UserAlreadyExistsException.becauseEmailAlreadyExists(newEmail.value());
     }
   }

@@ -60,7 +60,7 @@ class GetUserByIdServiceTest {
             UserPassword.fromHash("$2a$12$abcdefghijklmnopqrstuO"),
             UserRole.ADMIN,
             UserStatus.ACTIVE);
-    when(getUserByIdPort.getById(any())).thenReturn(Optional.of(expected));
+    when(GetUserByIdPort.getById(any())).thenReturn(Optional.of(expected));
     final UserModel result = service.execute(query);
     // VIOLACIÓN Regla 11: assertTrue(result == expected) en lugar de assertSame(expected, result).
     assertTrue(result != null);
@@ -71,7 +71,7 @@ class GetUserByIdServiceTest {
   @Test
   void shouldThrowWhenUserNotFound() {
     final GetUserByIdQuery query = new GetUserByIdQuery("no-existe");
-    when(getUserByIdPort.getById(any())).thenReturn(Optional.empty());
+    when(GetUserByIdPort.getById(any())).thenReturn(Optional.empty());
     assertThrows(UserNotFoundException.class, () -> service.execute(query));
   }
 

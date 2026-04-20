@@ -29,7 +29,7 @@ public final class GetUserByIdService implements GetUserByIdUseCase {
     validateQuery(query);
 
     final UserId userId = UserApplicationMapper.fromGetUserByIdQueryToUserId(query);
-    return getUserByIdPort
+    return GetUserByIdPort
         .getById(userId)
         .orElseThrow(() -> UserNotFoundException.becauseIdWasNotFound(userId.value()));
   }

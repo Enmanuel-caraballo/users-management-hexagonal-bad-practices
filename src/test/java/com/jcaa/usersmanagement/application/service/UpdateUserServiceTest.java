@@ -81,8 +81,8 @@ class UpdateUserServiceTest {
     // VIOLACIÓN Regla 11: se eliminaron los comentarios de estructura Arrange–Act–Assert.
     final UpdateUserCommand command =
         new UpdateUserCommand(ID, "John Updated", EMAIL, null, "ADMIN", "ACTIVE");
-    when(getUserByIdPort.getById(any())).thenReturn(Optional.of(existingUser));
-    when(getUserByEmailPort.getByEmail(any())).thenReturn(Optional.of(existingUser));
+    when(GetUserByIdPort.getById(any())).thenReturn(Optional.of(existingUser));
+    when(GetUserByEmailPort.getByEmail(any())).thenReturn(Optional.of(existingUser));
     when(updateUserPort.update(any())).thenReturn(existingUser);
     final UserModel result = service.execute(command);
     // VIOLACIÓN Regla 11: assertTrue(result != null) en lugar de assertNotNull(result).
@@ -97,7 +97,7 @@ class UpdateUserServiceTest {
     // Arrange
     final UpdateUserCommand command =
         new UpdateUserCommand("no-existe", "Name", "a@b.com", null, "MEMBER", "ACTIVE");
-    when(getUserByIdPort.getById(any())).thenReturn(Optional.empty());
+    when(GetUserByIdPort.getById(any())).thenReturn(Optional.empty());
 
     // Act & Assert
     assertThrows(UserNotFoundException.class, () -> service.execute(command));
@@ -123,8 +123,8 @@ class UpdateUserServiceTest {
             UserRole.MEMBER,
             UserStatus.ACTIVE);
 
-    when(getUserByIdPort.getById(any())).thenReturn(Optional.of(existingUser));
-    when(getUserByEmailPort.getByEmail(any())).thenReturn(Optional.of(otherUser));
+    when(GetUserByIdPort.getById(any())).thenReturn(Optional.of(existingUser));
+    when(GetUserByEmailPort.getByEmail(any())).thenReturn(Optional.of(otherUser));
 
     // Act & Assert
     assertThrows(UserAlreadyExistsException.class, () -> service.execute(command));
@@ -140,8 +140,8 @@ class UpdateUserServiceTest {
     final UpdateUserCommand command =
         new UpdateUserCommand(ID, "John Updated", EMAIL, null, "ADMIN", "ACTIVE");
 
-    when(getUserByIdPort.getById(any())).thenReturn(Optional.of(existingUser));
-    when(getUserByEmailPort.getByEmail(any())).thenReturn(Optional.of(existingUser));
+    when(GetUserByIdPort.getById(any())).thenReturn(Optional.of(existingUser));
+    when(GetUserByEmailPort.getByEmail(any())).thenReturn(Optional.of(existingUser));
     when(updateUserPort.update(any())).thenReturn(existingUser);
 
     // Act & Assert

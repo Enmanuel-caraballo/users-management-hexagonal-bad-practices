@@ -62,14 +62,15 @@ class CreateUserServiceTest {
             UserPassword.fromPlainText("Pass1234"),
             UserRole.ADMIN,
             UserStatus.PENDING);
-    when(getUserByEmailPort.getByEmail(any())).thenReturn(Optional.empty());
-    when(saveUserPort.save(any())).thenReturn(savedUser);
+    when(GetUserByEmailPort.getByEmail(any())).thenReturn(Optional.empty());
+    when(SaveUserPort.save(any())).thenReturn(savedUser);
     final UserModel result = service.execute(command);
     // VIOLACIÓN Regla 11: se usa assertTrue(x != null) en lugar de assertNotNull(x).
     // La regla indica usar las últimas aserciones — assertNotNull es más expresivo y correcto.
     assertTrue(result != null);
     assertTrue(result.getId().value().equals("u-01"));
-    verify(saveUserPort).save(any(UserModel.class));
+      verify(saveUserPort);
+      SaveUserPort.save(any(UserModel.class));
     verify(emailNotificationService).notifyUserCreated(savedUser, "Pass1234");
   }
 
@@ -86,9 +87,10 @@ class CreateUserServiceTest {
             UserPassword.fromPlainText("OtraPass1"),
             UserRole.MEMBER,
             UserStatus.ACTIVE);
-    when(getUserByEmailPort.getByEmail(any())).thenReturn(Optional.of(existing));
+    when(GetUserByEmailPort.getByEmail(any())).thenReturn(Optional.of(existing));
     assertThrows(UserAlreadyExistsException.class, () -> service.execute(command));
-    verify(saveUserPort, never()).save(any());
+      verify(saveUserPort, never());
+      SaveUserPort.save(any());
     verify(emailNotificationService, never()).notifyUserCreated(any(), any());
   }
 

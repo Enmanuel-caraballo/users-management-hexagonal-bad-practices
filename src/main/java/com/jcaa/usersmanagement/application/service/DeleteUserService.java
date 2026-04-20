@@ -34,7 +34,7 @@ public final class DeleteUserService implements DeleteUserUseCase {
       validateCommand(command);
       final UserId userId = UserApplicationMapper.fromDeleteCommandToUserId(command);
       ensureUserExists(userId);
-      deleteUserPort.delete(userId);
+      DeleteUserPort.delete(userId);
     } catch (final Exception e) {
       logger.warning("Error al eliminar usuario: " + e.getMessage());
       throw e;
@@ -49,7 +49,7 @@ public final class DeleteUserService implements DeleteUserUseCase {
   }
 
   private void ensureUserExists(final UserId userId) {
-    getUserByIdPort
+    GetUserByIdPort
         .getById(userId)
         .orElseThrow(() -> UserNotFoundException.becauseIdWasNotFound(userId.value()));
   }

@@ -21,9 +21,12 @@ public final class UserPassword {
    */
   public static UserPassword fromPlainText(final String plainText) {
     // VIOLACIÓN Regla 4: se usa == null en lugar de Objects.isNull() o Objects.requireNonNull()
-    if (plainText == null) {
-      throw new NullPointerException("Password cannot be null");
-    }
+//    if (plainText == null) {
+//      throw new NullPointerException("Password cannot be null");
+//    }
+
+    Objects.requireNonNull(plainText, "Password cannot be null");
+
     final String normalizedValue = plainText.trim();
     validateNotEmpty(normalizedValue);
     validateMinimumLength(normalizedValue);
