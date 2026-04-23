@@ -23,7 +23,7 @@ class UserAlreadyExistsExceptionTest {
     final String email = "existing@example.com";
 
     // Act
-    final String message = UserAlreadyExistsException.becauseEmailAlreadyExists(email).getMessage();
+    final String message = UserAlreadyExistsException.becauseEmailAlreadyExists().getMessage();
 
     // Assert
     assertTrue(message.contains(email), "el mensaje debe identificar el email duplicado");

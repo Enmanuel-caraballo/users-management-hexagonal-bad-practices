@@ -75,7 +75,7 @@ public final class DependencyContainer {
     final DeleteUserUseCase deleteUserUseCase =
         new DeleteUserService(userRepository, userRepository, validator);
     final GetUserByIdUseCase getUserByIdUseCase = new GetUserByIdService(userRepository, validator);
-    final GetAllUsersUseCase getAllUsersUseCase = new GetAllUsersService(userRepository);
+    final GetAllUsersUseCase getAllUsersUseCase = new GetAllUsersService();
     final LoginUseCase loginUseCase = new LoginService(userRepository, validator);
 
     this.userController =

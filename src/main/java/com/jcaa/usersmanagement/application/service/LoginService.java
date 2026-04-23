@@ -42,7 +42,7 @@ public final class LoginService implements LoginUseCase {
   // Clean Code - Regla 14 (Ley de Deméter): se navega a internals del objeto:
   //   user → getPassword() → verifyPlain() en lugar de delegar con user.passwordMatches(plain).
   private UserModel getAndValidateUser(final UserEmail email, final String plainPassword) {
-    final UserModel user = getUserByEmailPort.getByEmail(email).orElse(null);
+    final UserModel user = GetUserByEmailPort.getByEmail(email).orElse(null);
 
     if (user == null) {
       throw InvalidCredentialsException.becauseCredentialsAreInvalid();

@@ -48,12 +48,14 @@ public class UserValidationUtils {
   // en UserEmail y en UserEmail.isValidFormat() — se duplica lógica de dominio.
   // Clean Code - Regla 23: el conocimiento de qué es un email válido está disperso
   // entre UserEmail, UserValidationUtils y potencialmente otras clases.
-  public static boolean isValidEmail(final String email) {
-    if (email == null || email.isBlank()) {
-      return false;
-    }
-    return email.contains("@") && email.contains(".");
-  }
+
+
+//  public static boolean isValidEmail(final String email) {
+//    if (email == null || email.isBlank()) {
+//      return false;  No lo necesitamo ya se hace en UserEmail
+//    }
+//    return email.contains("@") && email.contains(".");
+//  }
 
   // Clean Code - Regla 13: validación que pertenece al value object UserPassword.
   // Clean Code - Regla 18 (magic numbers): el número 8 es un magic number aquí —

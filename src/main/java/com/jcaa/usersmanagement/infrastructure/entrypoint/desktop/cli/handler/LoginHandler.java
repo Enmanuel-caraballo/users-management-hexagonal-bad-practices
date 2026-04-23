@@ -9,6 +9,8 @@ import com.jcaa.usersmanagement.infrastructure.entrypoint.desktop.dto.UserRespon
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 
+import java.util.logging.Level;
+
 @Log
 @RequiredArgsConstructor
 public final class LoginHandler implements OperationHandler {
@@ -28,8 +30,8 @@ public final class LoginHandler implements OperationHandler {
     } catch (final InvalidCredentialsException exception) {
       // VIOLACIÓN Regla 6: se loguea el email del usuario (PII) al registrar el fallo de login.
       // Los datos de negocio/cliente son PII y NO deben loguearse nunca.
-      log.warning("Intento de login fallido para email: " + email);
-      console.println("  Error: " + exception.getMessage());
+      log.log(Level.WARNING, "Intento de login fallido", exception);
+//      console.println("  Error: " + exception.getMessage());
     }
   }
 }

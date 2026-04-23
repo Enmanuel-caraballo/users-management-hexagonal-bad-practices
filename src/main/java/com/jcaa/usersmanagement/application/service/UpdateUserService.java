@@ -24,8 +24,6 @@ import java.util.Set;
 public final class UpdateUserService implements UpdateUserUseCase {
 
   private final UpdateUserPort updateUserPort;
-  private final GetUserByIdPort getUserByIdPort;
-  private final GetUserByEmailPort getUserByEmailPort;
   private final EmailNotificationService emailNotificationService;
   private final Validator validator;
 
@@ -48,7 +46,7 @@ public final class UpdateUserService implements UpdateUserUseCase {
 
     final UserModel userToUpdate =
         UserApplicationMapper.fromUpdateCommandToModel(command, current.getPassword());
-    final UserModel updatedUser = updateUserPort.update(userToUpdate);
+    final UserModel updatedUser = UpdateUserPort.update(userToUpdate);
 
     // Clean Code - Regla 6: parámetro booleano de control (boolean flag).
     // La regla dice: no usar boolean flags para cambiar el comportamiento interno de un método.
@@ -102,7 +100,7 @@ public final class UpdateUserService implements UpdateUserUseCase {
         && !GetUserByEmailPort.getByEmail(newEmail).get().getEmail().value().equals(newEmail.value())
             || (GetUserByEmailPort.getByEmail(newEmail).isPresent()
                 && !GetUserByEmailPort.getByEmail(newEmail).get().getId().value().equals(ownerId.value()))) {
-      throw UserAlreadyExistsException.becauseEmailAlreadyExists(newEmail.value());
+      throw UserAlreadyExistsException.becauseEmailAlreadyExists();
     }
   }
 }

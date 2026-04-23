@@ -54,7 +54,7 @@ public final class CreateUserService implements CreateUserUseCase {
     // verificar si el email ya existe en la base de datos
     final UserEmail email = new UserEmail(command.email());
     if (GetUserByEmailPort.getByEmail(email).isPresent()) {
-      throw UserAlreadyExistsException.becauseEmailAlreadyExists(email.value());
+      throw UserAlreadyExistsException.becauseEmailAlreadyExists();
     }
 
     // Clean Code - Regla 3: aquí se mezcla lógica de negocio de alto nivel (crear usuario)

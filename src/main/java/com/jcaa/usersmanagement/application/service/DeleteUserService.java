@@ -11,16 +11,24 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @RequiredArgsConstructor
+@Log
+//@Slf4j Este sirve pero pendiente saber si log.error ees un solo nivel o hay mas
 public final class DeleteUserService implements DeleteUserUseCase {
 
   // VIOLACIÓN Regla 6: se agrega un Logger manual en vez de usar @Log de Lombok,
   // y se loguea información técnica mezclada con una captura de excepción no recuperable.
-  private static final Logger logger = Logger.getLogger(DeleteUserService.class.getName());
+
+
+
+//  private static final Logger logger = Logger.getLogger(DeleteUserService.class.getName());
 
   private final DeleteUserPort deleteUserPort;
   private final GetUserByIdPort getUserByIdPort;
@@ -36,8 +44,12 @@ public final class DeleteUserService implements DeleteUserUseCase {
       ensureUserExists(userId);
       DeleteUserPort.delete(userId);
     } catch (final Exception e) {
-      logger.warning("Error al eliminar usuario: " + e.getMessage());
-      throw e;
+
+      log.log(Level.SEVERE, "Error al eliminar usuario", e);
+//      log.error("Error al eliminar usuario", e);
+
+//      logger.warning("Error al eliminar usuario: " + e.getMessage());
+//      throw e;
     }
   }
 
