@@ -7,13 +7,9 @@ import com.jcaa.usersmanagement.infrastructure.entrypoint.desktop.controller.Use
 import com.jcaa.usersmanagement.infrastructure.entrypoint.desktop.dto.CreateUserRequest;
 import com.jcaa.usersmanagement.infrastructure.entrypoint.desktop.dto.UserResponse;
 import lombok.RequiredArgsConstructor;
-import java.util.logging.Logger;
 
 @RequiredArgsConstructor
 public final class CreateUserHandler implements OperationHandler {
-
-  // VIOLACIÓN Regla 4: Logger instanciado manualmente en vez de usar @Log de Lombok.
-  private static final Logger LOGGER = Logger.getLogger(CreateUserHandler.class.getName());
 
   private final UserController userController;
   private final ConsoleIO console;
@@ -33,9 +29,6 @@ public final class CreateUserHandler implements OperationHandler {
       console.println("\n  User created successfully.");
       printer.print(created);
     } catch (final UserAlreadyExistsException exception) {
-      // VIOLACIÓN Regla 6: se loguea el mensaje de la excepción que contiene PII (el email del usuario).
-      // Los datos de negocio/cliente son PII y no deben loguearse nunca.
-      LOGGER.warning("Usuario ya existe: " + exception.getMessage());
       console.println("  Error: " + exception.getMessage());
     }
   }
