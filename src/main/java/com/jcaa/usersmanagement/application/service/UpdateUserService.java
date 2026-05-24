@@ -38,7 +38,7 @@ public final class UpdateUserService implements UpdateUserUseCase {
     // Solución: void execute(command) para el comando + UserModel getUpdatedUser(id) para la consulta.
     validateCommand(command);
 
-    log.info("Actualizando usuario id=" + command.id() + ", email=" + command.email() + ", nombre=" + command.name());
+    log.info("Actualizando usuario id=" + command.id());
 
     final UserId userId = new UserId(command.id());
     final UserModel current = findExistingUserOrFail(userId);
