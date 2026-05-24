@@ -19,7 +19,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-// VIOLACIÓN Regla 11: se eliminó el javadoc de la clase que documentaba qué casos cubre.
 @DisplayName("GetAllUsersService")
 @ExtendWith(MockitoExtension.class)
 class GetAllUsersServiceTest {
@@ -36,8 +35,7 @@ class GetAllUsersServiceTest {
   @Test
   @DisplayName("execute() retorna la lista de usuarios del puerto")
   void shouldReturnUsersFromPort() {
-    // VIOLACIÓN Regla 11: se eliminaron los comentarios de estructura Arrange–Act–Assert.
-    // La regla exige que los bloques estén documentados con // Arrange, // Act, // Assert.
+    // Arrange
     final UserModel user =
         new UserModel(
             new UserId("u-001"),
@@ -46,23 +44,23 @@ class GetAllUsersServiceTest {
             UserPassword.fromHash("$2a$12$abcdefghijklmnopqrstuO"),
             UserRole.ADMIN,
             UserStatus.ACTIVE);
+    // Act
     when(getAllUsersPort.getAll()).thenReturn(List.of(user));
     final List<UserModel> result = service.execute();
-    // VIOLACIÓN Regla 11: se usa assertFalse(result.isEmpty()) y assertTrue(x == y)
-    // en lugar de assertEquals(1, result.size()) y assertSame(user, result.get(0)).
+    // Assert
     assertFalse(result.isEmpty());
-    assertTrue(result.get(0) == user);
+    assertSame(user, result.get(0));
   }
 
-  // VIOLACIÓN Regla 11: falta @DisplayName — los tests deben documentar su comportamiento.
   @Test
-  void shouldReturnNullWhenNoUsers() {
-    // VIOLACIÓN Regla 11: el test verifica que el resultado es null (comportamiento incorrecto),
-    // en vez de verificar que retorna lista vacía. Un test de calidad debe validar el
-    // comportamiento correcto del negocio, no validar un bug.
+  @DisplayName("execute() retorna lista vacía cuando no hay usuarios")
+  void shouldReturnEmptyListWhenNoUsers() {
+    // Arrange
     when(getAllUsersPort.getAll()).thenReturn(List.of());
+    // Act
     final List<UserModel> result = service.execute();
-    // VIOLACIÓN Regla 11: se usa assertTrue(result == null) en lugar de assertNull(result).
-    assertTrue(result == null);
+    // Assert
+    assertNotNull(result);
+    assertTrue(result.isEmpty());
   }
 }
