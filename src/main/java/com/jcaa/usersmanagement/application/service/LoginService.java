@@ -37,7 +37,7 @@ public final class LoginService implements LoginUseCase {
   }
 
   private void validateCredentials(final UserModel user, final String plainPassword) {
-    if (!user.getPassword().verifyPlain(plainPassword)) {
+    if (!user.passwordMatches(plainPassword)) {
       throw InvalidCredentialsException.becauseCredentialsAreInvalid();
     }
     if (user.getStatus() != UserStatus.ACTIVE) {
