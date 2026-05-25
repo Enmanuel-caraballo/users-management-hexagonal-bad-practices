@@ -144,6 +144,9 @@ public final class UserRepositoryMySQL
       statement.setString(6, dto.status());
       statement.executeUpdate();
     } catch (final SQLException exception) {
+      if (exception.getErrorCode() == 1062 || "23000".equals(exception.getSQLState())) {
+        throw UserAlreadyExistsException.becauseEmailAlreadyExists(dto.email());
+      }
       throw PersistenceException.becauseSaveFailed(dto.id(), exception);
     }
   }
@@ -158,6 +161,9 @@ public final class UserRepositoryMySQL
       statement.setString(6, dto.id());
       statement.executeUpdate();
     } catch (final SQLException exception) {
+      if (exception.getErrorCode() == 1062 || "23000".equals(exception.getSQLState())) {
+        throw UserAlreadyExistsException.becauseEmailAlreadyExists(dto.email());
+      }
       throw PersistenceException.becauseUpdateFailed(dto.id(), exception);
     }
   }
