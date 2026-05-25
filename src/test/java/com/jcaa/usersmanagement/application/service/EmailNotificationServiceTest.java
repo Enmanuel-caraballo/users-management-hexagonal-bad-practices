@@ -61,11 +61,13 @@ class EmailNotificationServiceTest {
 
   // ── notifyUserCreated() — flujo feliz
 
-  // VIOLACIÓN Regla 11: falta @DisplayName en el método.
   @Test
+  @DisplayName("notifyUserCreated() invoca el puerto con el email y asunto correctos")
   void shouldSendCreatedNotificationToCorrectEmail() {
-    // VIOLACIÓN Regla 11: se eliminaron los comentarios Arrange–Act–Assert.
+    // Act
     service.notifyUserCreated(user, PASSWORD);
+
+    // Assert
     verify(emailSenderPort)
         .send(
             argThat(
